@@ -1,0 +1,131 @@
+$------------------------------------------------------------
+PHYSICAL_PROBLEM 
+$------------------------------------------------------------
+PROBLEM_DEFINITION
+  TEMPORAL             DYNAMIC
+END_PROBLEM_DEFINITION
+
+PROPERTIES
+
+  MATERIAL= 1 $$ TINE
+    DENSITY=              7.0
+    LAW_DENSITY=         CONSTANT
+
+
+
+    RAYLEIGH_DUMPING, RAYALPHA= 100.0
+    CONSTITUTIVE_MODEL   NITINOL  \
+                         5.0e+4  0.0  0.07 500.0 500.0 0 0 0 700 300 300 0 0 0 0 1 1 1
+  END_MATERIAL
+
+
+  MATERIAL=2 TISSUE
+    DENSITY=              1.37
+    LAW_DENSITY=         CONSTANT
+    RAYLEIGH_DUMPING, RAYALPHA= 2000.0
+  
+    CONSTITUTIVE_MODEL   HOLZAPFEL    \
+                         5.0e4 3.0e5 27950.0 6.3219 10952.0 10.26 0.0 0.0 0.0 0.0 1.0
+  END_MATERIAL
+
+
+END_PROPERTIES 
+
+$------------------------------------------------------------
+END_PHYSICAL_PROBLEM  
+$------------------------------------------------------------
+NUMERICAL_TREATMENT
+  TIME_TREATMENT:      EXPLICIT
+  TIME_INTEGRATION:    TCHAMWA_WIELGOSZ, PHITW=1.033, DAMPED
+  MASS_SCALING=        1
+  SAFETY_FACTOR=       0.7
+  NO_STEADY_STATE
+
+ 
+ 
+$ NUMERICAL_TREATMENT
+$  TIME_TREATMENT:     IMPLICIT  #EXPLICIT TODO
+$  TIME_INTEGRATION:    NEWMARK
+  $,DAMPED
+$  NO_STEADY_STATE
+$  ALGEBRAIC_SOLVER:
+$    SOLVER:             DIRECT
+    $CONVERGENCE:       ITERA=900,TOLER=1.0E-8
+    $PRECONDITIONER:    DIAGONAL
+    $COARSE:            ON
+$    RESIDUAL:          RHS
+$    OUTPUT:            CONVERGENCE
+$    OPTION:            ZERO_FIXITY
+$  END_ALGEBRAIC_SOLVER
+$  RESIDUAL:            TOTAL
+$  SAFETY_FACTOR=       1.0
+$  CONVERGENCE_TOLER=   1.0E-6
+$  MAXIMUM_ITERATION=   100
+$  VECTORIZED_ASEEMBLY: OFF
+ 
+END_NUMERICAL_TREATMENT
+$------------------------------------------------------------
+OUTPUT_&_POST-PROCESS 
+    START_POSTPROCESS_AT STEP=0
+ 
+    POSTPROCESS DISPLACEMENT   STEPS= 1000
+    POSTPROCESS SIGMA          STEPS= 1000
+
+    NODE_SET
+        DISPX
+        DISPY
+        DISPZ
+    END_NODE_SET
+
+END_OUTPUT_&_POST_PROCESS  
+$------------------------------------------------------------
+BOUNDARY_CONDITIONS
+$------------------------------------------------------------
+
+CODES, NODES
+      1      000   0.0  0.0  0.0 
+      2      000   0.0  0.0  0.0 
+      3      000   0.0  0.0  0.0 
+      4      000   0.0  0.0  0.0 
+      5      000   0.0  0.0  0.0 
+      6      000   0.0  0.0  0.0 
+      7      000   0.0  0.0  0.0 
+     
+    1 & 2    000   0.0  0.0  0.0
+    2 & 3    000   0.0  0.0  0.0
+    2 & 4    000   0.0  0.0  0.0
+    2 & 5    000   0.0  0.0  0.0
+    2 & 6    000   0.0  0.0  0.0
+
+    3 & 4    000   0.0  0.0  0.0
+    3 & 6    000   0.0  0.0  0.0
+    3 & 7    000   0.0  0.0  0.0
+
+    4 & 5    000   0.0  0.0  0.0
+    4 & 7    000   0.0  0.0  0.0
+
+    5 & 6    000   0.0  0.0  0.0
+    5 & 7    000   0.0  0.0  0.0
+
+    6 & 7    000   0.0  0.0  0.0
+
+  2 & 3 & 4  000   0.0  0.0  0.0
+  2 & 3 & 6  000   0.0  0.0  0.0
+
+  2 & 4 & 5  000   0.0  0.0  0.0
+  2 & 5 & 6  000   0.0  0.0  0.0
+
+
+
+  3 & 4 & 7  000   0.0  0.0  0.0
+  3 & 6 & 7  000   0.0  0.0  0.0
+
+
+  4 & 5 & 7  000   0.0  0.0  0.0
+
+  5 & 6 & 7  000   0.0  0.0  0.0
+     
+END_CODES
+
+END_BOUNDARY_CONDITIONS  
+$------------------------------------------------------------

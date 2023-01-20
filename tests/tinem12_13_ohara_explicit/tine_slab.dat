@@ -1,0 +1,29 @@
+$------------------------------------------------------------------
+RUN_DATA
+  ALYA:                    tine_slab
+  LIVE_INFO:               screen
+  POSTPROCESS:             domain
+END_RUN_DATA
+$-------------------------------------------------------------------
+PROBLEM_DATA
+  MAXIMUM_NUMBER_GLOBAL=  1
+  TIME_COUPLING:          GLOBAL, FROM_CRITICAL
+  TIME_INTERVAL:          0.000, 0.6
+  TIME_STEP_SIZE:         1E-4
+  NUMBER_OF_STEPS_(MAX):  1000000000
+$-------------------------------------------------------------------
+  EXMEDI:                 ON
+  END_EXMEDI
+
+  SOLIDZ_PROBLEM=         ON
+  END_SOLIDZ
+
+  PARALL_SERVICE:         ON
+    OUTPUT_FILE:          NO
+    POSTPROCESS:          MASTER
+    PARTITION:            FACES
+  END_PARALL
+
+$-------------------------------------------------------------------
+END_PROBLEM_DATA
+$-------------------------------------------------------------------

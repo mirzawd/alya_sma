@@ -1,0 +1,49 @@
+$-------------------------------------------------------------
+  PHYSICAL_PROBLEM
+    PROPERTIES
+    END_PROPERTIES
+
+    COUPLING
+  $     SOLIDZ EXMEDI
+    END_COUPLING
+ 
+    FIBERS LONGITUDINAL   FIELD=1
+    CELL_TYPE             FIELD=2
+
+    ECCOUPLING
+      MATERIAL:         1
+      MODEL:            HUNTER
+      CAL50:            AUTO
+      CONTROL_FACTOR:   1.0
+      MATERIAL:         2
+      MODEL:            HUNTER
+      CAL50:            AUTO
+      CONTROL_FACTOR:   1.0
+    END_ECCOUPLING
+$-------------------------------------------------------------
+  END_PHYSICAL_PROBLEM
+$-------------------------------------------------------------
+  NUMERICAL_TREATMENT 
+     MESH
+$$       DIVISION=1
+     END_MESH
+     ELSEST
+       STRATEGY: BIN
+       NUMBER:   10,10,10
+       DATAF:    LINKED_LIST
+     END_ELSEST
+  END_NUMERICAL_TREATMENT
+$-------------------------------------------------------------
+
+$-------------------------------------------------------------
+  OUTPUT_&_POST_PROCESS
+    ON_LAST_MESH
+$    STEPS= 500
+     POSTPROCESS FIELD
+     POSTPROCESS CODNO
+     POSTPROCESS LBSET
+     POSTPROCESS LMATE
+$    POSTPROCESS SUBDO  
+    
+  END_OUTPUT_&_POST_PROCESS
+$-------------------------------------------------------------

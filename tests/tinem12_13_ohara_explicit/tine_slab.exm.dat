@@ -1,0 +1,87 @@
+$------------------------------------------------------------
+PHYSICAL_PROBLEM
+$------------------------------------------------------------
+PROBLEM_DEFINITION
+  TEMPORAL_DERIVATIVES:   ON
+
+  STARTING_POTENTIAL
+    NSTIM=    1
+    VALUE=    160
+    LAPSE=    0.005   
+    CENTER=    -0.0259138    -0.0174484    0.012901
+    REACH=    0.1$0.04
+    T_START=  0.0    
+  END_STARTING_POTENTIAL
+  
+$------------------------------------------------------------
+END_PROBLEM_DEFINITION
+$------------------------------------------------------------
+
+    PROPERTIES
+        CM_CONST=                1.0  $0.001       
+        PARAMETERS
+            ISOCHRONES HIGHER -10.0
+        END_PARAMETERS
+
+        MATERIAL 1 $ NO_MODEL
+           CONTINUUM_MODEL
+              IN_DIFFUSION = 0.000026  0.0000045
+             $ IN_DIFFUSION = 0.001171  0.00039033
+           END_CONTINNUM_MODEL
+           CELL_MODEL=                  NO_MODEL
+          END_CELL_MODEL 
+ 
+        END_MATERIAL
+
+        MATERIAL 2 $ TISSuE
+           CONTINUUM_MODEL
+             $IN_DIFFUSION = 0.0026  0.00046
+             IN_DIFFUSION = 0.001171  0.00039033
+           END_CONTINNUM_MODEL
+           CELL_MODEL=                  OHARA INA_PASSINI
+           END_CELL_MODEL  
+           INI_CELL
+             INCLUDE Normal.txt
+           END_INICELL
+        END_MATERIAL
+
+
+    END_PROPERTIES
+
+END_PHYSICAL_PROBLEM
+$------------------------------------------------------------
+
+$------------------------------------------------------------
+NUMERICAL_TREATMENT
+   CONSTANT_MATRIX
+   SAFETY_FACTOR:     1.0
+ 
+   TIMETREAMENT: IMPLICIT CRANK
+   ALGEBRAIC_SOLVER
+     SOLVER:          CG
+     CONVERGENCE:     ITERA=1000, TOLER=1.0e-5, ADAPTIME, RATIO=0.01
+     OUTPUT:          CONVERGENCE
+     PRECONDITIONER:  DIAGONAL
+   END_ALGEBRAIC_SOLVER
+END_NUMERICAL_TREATMENT
+$------------------------------------------------------------
+
+$------------------------------------------------------------
+OUTPUT_&_POST_PROCESS
+ START_POSTPROCESS_AT STEP = 0
+
+  POSTPROCESS INTRA    STEPS = 500
+
+  POSTPROCESS ISOCH    STEPS = 500
+
+  NODE_SET
+    INTRA
+  END_NODE_SET
+
+END_OUTPUT_&_POST-PROCESS
+$------------------------------------------------------------
+
+$------------------------------------------------------------
+BOUNDARY_CONDITIONS, CONSTANT  
+END_BOUNDARY_CONDITIONS
+$------------------------------------------------------------

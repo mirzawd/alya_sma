@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#BSUB -J tine
+
+#BSUB -W 23:59
+
+#BSUB -n 48
+
+#BSUB -q bsc_case
+
+#BSUB -eo tine_slab.err
+
+#BSUB -oo tine_slab.out
+
+mpirun /home/bsc21/bsc21717/Alya_last/Executables/unix/Alya.x tine_slab
+

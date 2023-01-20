@@ -1,0 +1,15 @@
+$-------------------------------------------------------------------
+DATA
+  FORMAT:                   ensight
+  MARK_ELEMENTS:            type
+  ELIMINATE_BOUNDARY_NODES: yes
+  MULTIPLE_FILE:            OFF
+  BOUNDARY:                 ON
+  SUBDOMAINS, ALL
+  END_SUBDOMAINS
+$  ONLY_STEP
+$    84000
+$  END_ONLY
+END_DATA
+$-------------------------------------------------------------------
+ 

@@ -1,0 +1,60 @@
+$------------------------------------------------------------
+DIMENSIONS
+
+  NODAL_POINTS=        30470
+  ELEMENTS=           158861
+  BOUNDARIES=          20152
+  MATERIALS =          2
+  SPACE_DIMENSIONS=             3
+  NODES=                        4
+  FIELDS = 2
+    FIELD=1, DIMENSION=3, NODES
+    FIELD=2, DIMENSION=1, NODES
+  END_FIELDS
+END_DIMENSIONS
+$------------------------------------------------------------
+STRATEGY
+  INTEGRATION_RULE:          OPEN
+  DOMAIN_INTEGRATION_POINTS: 1
+  SCALE: XSCALE = 0.1 , YSCALE = 0.1 , ZSCALE = 0.1 
+  EXTRAPOLATE_BOUNDARY_CONDITIONS: ON
+END_STRATEGY
+$------------------------------------------------------------
+GEOMETRY
+
+   INCLUDE  tine_slab.geo.dat
+
+   INCLUDE tine_slab.mat.dat
+
+END_GEOMETRY
+
+SETS
+$$   include tine_slab.defsets
+END_SETS
+
+BOUNDARY_CONDITIONS
+
+   INCLUDE tine_slab.fix.dat
+
+
+$  ON_NODES , POSITIONAL      
+$    INTERSECTIONS, ADDING          
+$    RANGE         
+$      CODE_NUMBER  = 1   
+$      COORDINATE   =   YCOOR      
+$      $$       GREATER_THAN =   10.2687         
+$      LOWER_THAN =   0.001
+$    END_RANGE      
+$  END_ON_NODES
+
+END_BOUNDARY_CONDITIONS
+$----------------------------------------------------------
+FIELDS
+  FIELD=1
+    INCLUDE tine_slab.fiber.dat 
+  END_FIELD
+  FIELD=2
+    INCLUDE tine_slab.cells.dat
+  END_FIELD
+END_FIELDS
+$---------------------------------------------------------- 
