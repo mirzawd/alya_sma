@@ -1,0 +1,110 @@
+$-------------------------------------------------------------------
+$
+$ cylinder-2d
+$ Author:  Waleed Mirza
+
+$
+$ Units:   SI (cgs)
+$
+$-------------------------------------------------------------------
+PHYSICAL_PROBLEM
+  PROBLEM_DEFINITION
+    TEMPORAL_DERIVATIVES: DYNAMIC
+  END_PROBLEM_DEFINITION
+  PROPERTIES
+
+   DENSITY=              1
+   $LAW_DENSITY=         CONSTANT
+ 
+   RAYLEIGH_DUMPING, RAYALPHA= 10.0
+   CONSTITUTIVE_MODEL   HOLZAPFEL    \
+      5.0e4 1000000.0 830.0 6.710 30050.0 5.972 5010.0 3.439 710.0 3.982 1.0
+  
+   MATERIAL =           2
+    DENSITY           = 7
+    CONSTITUTIVE_MODEL: OLIVER \
+    1000 0.3
+   RAYLEIGH_DAMPING: RAYALPHA=100.0  
+      
+      
+
+  END_PROPERTIES
+END_PHYSICAL_PROBLEM
+$-------------------------------------------------------------------
+NUMERICAL_TREATMENT
+  TIME_TREATMENT:      EXPLICIT
+  TIME_INTEGRATION:    TCHAMWA_WIELGOSZ, PHITW=1.033, DAMPED
+  MASS_SCALING=        1
+  SAFETY_FACTOR=       0.1
+  NO_STEADY_STATE
+
+ 
+ 
+$ NUMERICAL_TREATMENT
+$  TIME_TREATMENT:     IMPLICIT  #EXPLICIT TODO
+$  TIME_INTEGRATION:    NEWMARK
+  $,DAMPED
+$  NO_STEADY_STATE
+$  ALGEBRAIC_SOLVER:
+$    SOLVER:             DIRECT
+    $CONVERGENCE:       ITERA=900,TOLER=1.0E-8
+    $PRECONDITIONER:    DIAGONAL
+    $COARSE:            ON
+$    RESIDUAL:          RHS
+$    OUTPUT:            CONVERGENCE
+$    OPTION:            ZERO_FIXITY
+$  END_ALGEBRAIC_SOLVER
+$  RESIDUAL:            TOTAL
+$  SAFETY_FACTOR=       1.0
+$  CONVERGENCE_TOLER=   1.0E-6
+$  MAXIMUM_ITERATION=   100
+$  VECTORIZED_ASEEMBLY: OFF
+ 
+ 
+ 
+END_NUMERICAL_TREATMENT
+$-------------------------------------------------------------------
+OUTPUT_&_POST_PROCESS
+  START_POSTPROCESS_AT, STEP= 0
+  POSTPROCESS DISPL
+  POSTPROCESS SIGMA
+  POSTPROCESS SEQVM
+  WITNESS_POINTS
+    DISPX
+    DISPY
+    DISPZ
+    SIGXX
+    SIGYY
+    SIGZZ
+    SIGXY
+    SIGYZ
+   $SIGXZ
+  END_WITNESS_POINTS
+END_OUTPUT_&_POST_PROCESS
+$-------------------------------------------------------------------
+BOUNDARY_CONDITIONS, TRANSIENT
+  CODES, NODES
+            1  111  0.0 0.0 0.0  
+            3  001  0.0 0.0 0.0, MODULE_FUNCTION= 1 
+            2  100  0.0 0.0 0.0  
+  END_CODES
+  
+  FUNCTIONS
+    TOTAL_NUMBER = 1
+    CONDITION
+      FUNCTION_NUMBER: 1
+      TIME_SHAPE:      DISCRETE, SMOOTH
+      SHAPE_DEFINITION
+        7
+        0.0         0.0      0.0 0.0
+        1        0.0      0.0 -1.0
+        2        0.0      0.0 0.0   
+        3        0.0      0.0 -1.0
+        4        0.0      0.0 0.0 
+        4.5        0.0      0.0 -0.75
+        5.0        0.0      0.0 0.0         
+   END_SHAPE_DEFINITION
+    END_CONDITION
+  END_FUNCTIONS
+END_BOUNDARY_CONDITIONS
+$-------------------------------------------------------------------

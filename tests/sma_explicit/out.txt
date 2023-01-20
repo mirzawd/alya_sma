@@ -1,0 +1,395 @@
+--|                           
+--| ALYA  START ALYA FOR PROBLEM: sm154_d1C
+--|                           
+--| ALYA  READ PROBLEM DATA
+--| ALYA  STREAMS PER GPU: 1
+--| ALYA  START READ MESH ARRAYS
+--| ALYA     READ ELEMENT  TYPE
+--| ALYA     READ ELEMENT  CONNECTIVITY
+--| ALYA     READ COORDINATE
+--| ALYA     READ BOUNDARY CONNECTIVITY, TYPE AND ELEMENT
+--| ALYA     READ MATERIAL
+--| ALYA     !!! WARNING: Empty SETS...END_SETS in dom.dat. Likely missing ELEME, BOUND, or NODES.
+--| ALYA     !!! WARNING: KERNEL WILL EXTRAPOLATE FROM BOUNDARY CODES TO NODE CODES
+--| ALYA     READ BOUNDARY CODES ON BOUNDARIES
+--| ALYA     READ FIELDS
+--| ALYA     READ 1 FIELDS
+--| ALYA  END READ MESH ARRAYS
+--| ALYA  KERMOD: READ DATA
+ scaling
+--| ALYA  START MESH MULTIPLICATION
+--| ALYA     START LEVEL 1
+--| ALYA        EDGE TABLE
+--| ALYA        FACE TABLE
+--| ALYA        ADD NEW NODES AND ELEMENTS
+--| ALYA        MESH DIMENSIONS  (NELEM=   8.0 , NPOIN=  27.0 , NBOUN=  24.0 )
+--| ALYA     END LEVEL 1
+--| ALYA  END MESH MULTIPLICATION
+--| ALYA  START CONSTRUCT DOMAIN
+--| ALYA     NODE RENUMBERING WITH NOTHING!...
+--| ALYA     PARALL: COMPUTE INTER-COLOR COMMUNICATORS
+--| ALYA     PARALL: COMPUTE BIN STRUCTURE FOR PARTITIONS
+--| ALYA     COMPUTE BIN STRUCTURE OF PARTITIONS
+--| ALYA     COMPUTE GRAPH
+--| ALYA     CHECK ELEMENT ORDERING
+--| ALYA     CHECK BOUNDARY ORDERING
+--| ALYA     COMPUTE LUMPED MASS MATRIX
+--| ALYA     COMPUTE CLOSED MASS MATRIX
+--| ALYA     COMPUTE EXTERIOR NORMALS
+--| ALYA     EXTRAPOLATE BOUNDARY CODES TO NODE CODES
+--| ALYA     START OUTPUT MESH
+--| ALYA     END OUTPUT MESH
+--| ALYA     START HYBRID PARALLELIZATION & VECTORIZATION (ELEMENTS)
+--| ALYA        VECTORIZATION WITH VECTOR SIZE= 16
+--| ALYA        MAX NUMBER OF ELEMENT TYPES DETECTED= 1
+--| ALYA        OPENMP/OMPSS DESACTIVATED IN ALL LOOPS
+--| ALYA     END HYBRID PARALLELIZATION & VECTORIZATION (ELEMENTS)
+--| ALYA     START HYBRID PARALLELIZATION & VECTORIZATION (BOUNDARIES)
+--| ALYA        VECTORIZATION WITH VECTOR SIZE= 16
+--| ALYA        MAX NUMBER OF BOUNDARY TYPES DETECTED= 1
+--| ALYA        OPENMP/OMPSS DESACTIVATED IN ALL LOOPS
+--| ALYA     END HYBRID PARALLELIZATION & VECTORIZATION (BOUNDARIES)
+--| ALYA  END CONSTRUCT DOMAIN
+--| ALYA  START MODULE INITIALIZATION
+--| ALYA     SOLIDZ: READ DATA
+--| ALYA             READING PHYSICS...
+--| ALYA             SOLIDZ SOLVING DYNAMIC PROBLEM.
+--| ALYA             READING MATERIALS...
+--| ALYA             MATERIAL: 1
+--| ALYA                DENSITY= 0.159000000000E-08
+ hello world de sld_reaphy
+--| ALYA                MATERIAL MODEL: DAMAGE OLIVER 1990
+--| ALYA     SOLIDZ: REGISTERING PRIMARY VARIABLE DISPL
+--| ALYA     SOLIDZ: REGISTERING PRIMARY VARIABLE VELOC
+--| ALYA     SOLIDZ: REGISTERING PRIMARY VARIABLE ACCEL
+--| ALYA     SOLIDZ: REGISTERING PRIMARY VARIABLE SVEGM
+--| ALYA  END MODULE INITIALIZATION
+--| ALYA  START SOLVER INITIALIZATION
+--| ALYA     SOLIDZ: DIRECT LDU FOR DISPLACEMENT
+--| ALYA  END SOLVER INITIALIZATION
+--| ALYA  KERMOD: INITIAL SOLUTION
+--| ALYA  START INITIAL SOLUTION
+--| ALYA     SOLIDZ
+--| ALYA  END INITIAL SOLUTION
+--| ALYA  START TIME STEP 1, t=  1.000000E-02
+--| ALYA     SOLVE SOLIDZ  IMPLICITLY... DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ DSYEVQ3: No convergence.
+ |RES|= NaN--| ALYA     |---->  ABORTED IN SOLIDZ: Nan or +/- Inf in displacement residual

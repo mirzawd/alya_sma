@@ -1,0 +1,38 @@
+$-------------------------------------------------------------------
+RUN_DATA
+  ALYA:               cantilever_solid8ip
+  CODE=               1
+  LIVE_INFO:          SCREEN
+  LOG_FILE:           ON
+  RUN_TYPE:           CONTINUE
+$   RUN_TYPE:         PRELIMINARY, FREQUENCY=2000
+END_RUN_DATA
+
+
+$-------------------------------------------------------------------
+PROBLEM_DATA
+  TIME_COUPLING:      GLOBAL, FROM_CRITICAL
+  TIME_INTERVAL:      0.0, 10E-3
+  NUMBER_OF_STEPS=    1000000
+$  FUNCTIONS:          DISCRETE
+$  DTIME
+$    TIME_SHAPE: DISCRETE
+$    SHAPE_DEFINITION
+$      3
+$      0.1 0.001
+$      0.9 0.001
+$      1.0 0.001
+$    END_SHAPE_DEFINITION
+$  END_DTIME
+  $------------------------------------------
+  SOLIDZ_MODULE:      ON
+  END_SOLIDZ_MODULE
+  PARALL_SERVICE:     ON
+    POSTPROCESS:      MASTER
+    PARTITION_TYPE:   FACES
+    PARTITIONING:
+      METHOD:         METIS
+    END_PARTITIONING
+  END_PARALL_SERVICE
+END_PROBLEM_DATA
+$-------------------------------------------------------------------

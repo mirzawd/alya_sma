@@ -1,0 +1,88 @@
+$-------------------------------------------------------------------
+$
+$ cantilever_solid8ip
+$ Author:    Gerard Guillamet
+$ Details:   This test validates the use of linear solid
+$            element (8 integration points) in Implicit
+$            A discrete time function is used with different time
+$            steps.
+$            Dimensions: L=150mm, W=2.5mm, h=5mm
+$            Load: Force at end tip P=5N
+$            Mesh: 8x24x1 elements
+$ Reference: Abaqus 6.14 Abaqus Documentation. Getting
+$            started with Abaqus, Chapter 4 Using Continuum
+$            elements
+$
+$ Units: SI (mm)
+$-------------------------------------------------------------------
+PHYSICAL_PROBLEM
+  PROBLEM_DEFINITION
+    TEMPORAL_DERIVATIVES:DYNAMIC
+  END_PROBLEM_DEFINITION
+  PROPERTIES
+    $ ,,,,,, Aluminum ,,,,,,
+    MATERIAL           = 1
+    DENSITY           = 5.7e-9
+    CONSTITUTIVE_MODEL: OLIVER \
+      71.1E+3 0.3
+      RAYLEIGH_DAMPING: RAYALPHA=100000
+    $ Nodal forces
+    FORCE: FIELD=1
+  END_PROPERTIES
+END_PHYSICAL_PROBLEM
+$-------------------------------------------------------------------
+$NUMERICAL_TREATMENT
+$  TIME_TREATMENT:      IMPLICIT
+$  TIME_INTEGRATION:    NEWMARK
+$  ALGEBRAIC_SOLVER
+$     SOLVER:            DIRECT
+$$    SOLVER:            DEFLATED_CG, COARSE:SPARSE
+$$    SOLVER:            GMRES, KRYLOV=1000
+$$    CONVERGENCE:       ITERA=10000, TOLER=1.0E-7
+$$    PRECONDITIONER:    DIAGONAL
+$    COARSE:            ON
+$    RESIDUAL:          RHS
+$    OPTION:            ZERO_FIXITY
+$    OUTPUT:            CONVERGENCE
+$  END_ALGEBRAIC_SOLVER
+$  CONVERGENCE_TOLER=   1.0E-3
+$  SAFETY_FACTOR=       0.6
+$  MAXIMUM_ITERATION=   100
+$  RESIDUAL:            TOTAL
+$  VECTORISED_ASSEMBLY: OFF
+$END_NUMERICAL_TREATMENT
+
+
+NUMERICAL_TREATMENT
+  TIME_TREATMENT:      EXPLICIT
+  TIME_INTEGRATION:     TCHAMWA_WIELGOSZ, PHITW=1.033, DAMPED
+  MASS_SCALING=        1
+  SAFETY_FACTOR=       0.7
+  NO_STEADY_STATE
+END_NUMERICAL_TREATMENT
+
+
+
+$-------------------------------------------------------------------
+
+OUTPUT_&_POST_PROCESS
+  START_POSTPROCESS_AT: STEP  = 0
+  POSTPROCESS AXIS1   
+$ POSTPROCESS AXIS2  
+$ POSTPROCESS AXIS3  
+  POSTPROCESS CELEN   
+  POSTPROCESS DISPL   
+  POSTPROCESS SIGMA
+  POSTPROCESS SDV1E 
+  NODE_SET
+    DISPX
+    FRXIX
+  END_NODE_SET
+END_OUTPUT_&_POST_PROCESS
+$-------------------------------------------------------------------
+BOUNDARY_CONDITIONS, TRANSIENT
+  CODES, NODES
+    1  111  0.0 0.0 0.0  $ Clamped
+  END_CODES
+END_BOUNDARY_CONDITIONS
+$-------------------------------------------------------------------

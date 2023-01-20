@@ -1,0 +1,45 @@
+$-------------------------------------------------------------------
+DIMENSIONS
+  NODAL_POINTS      = 1764
+  ELEMENTS          = 1152
+  SPACE_DIMENSIONS  = 3
+  TYPES_OF_ELEMENTS = HEX08
+  BOUNDARIES        = 0
+  MATERIALS         = 1
+  FIELDS            = 1
+    FIELD = 1, DIMENSION = 3, NODES
+  END_FIELDS
+END_DIMENSIONS
+$-------------------------------------------------------------------
+STRATEGY
+  INTEGRATION_RULE:                 Open
+  DOMAIN_INTEGRATION_POINTS:        0
+  SCALE:                            XSCAL=1. YSCAL=1. ZSCAL=1.
+  TRANSLATION:                      XTRAN=0.0 YTRAN=0.0 ZTRAN=0.0
+  BOUNDARY_ELEMENT:                 OFF
+  EXTRAPOLATE_BOUNDARY_CONDITIONS:  ON
+  GROUPS=                           1024, PARALLEL_FRONTAL
+END_STRATEGY
+$-------------------------------------------------------------------
+GEOMETRY
+  INCLUDE cantilever_nitinol.geo.dat
+END_GEOMETRY
+$-------------------------------------------------------------------
+SETS
+  INCLUDE cantilever_nitinol.set.dat
+END_SETS
+$-------------------------------------------------------------------
+BOUNDARY_CONDITIONS
+  INCLUDE cantilever_nitinol.fix.dat
+END_BOUNDARY_CONDITIONS
+$-------------------------------------------------------------------
+FIELDS
+  FIELD = 1
+   433  0.0 10 0.0
+   874  0.0 10 0.0
+   1315 0.0 10 0.0
+   1756 0.0 10 0.0
+  END_FIELD
+END_FIELDS
+$-------------------------------------------------------------------
+ 

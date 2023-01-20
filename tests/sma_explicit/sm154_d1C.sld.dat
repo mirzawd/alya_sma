@@ -1,0 +1,118 @@
+$-------------------------------------------------------------------
+$
+$ cylinder-2d
+$ Author:  Gerard Guillamet
+$ Details: Cylinder in 2d with a prescribed displacement using
+$          a cylindrical coordinate system at the center.
+$
+$          Diameter cylinder:  10mm
+$          Expansion:        0.25mm
+$
+$ Units:   SI (mm)
+$
+$-------------------------------------------------------------------
+PHYSICAL_PROBLEM
+  PROBLEM_DEFINITION
+    TEMPORAL_DERIVATIVES: DYNAMIC
+  END_PROBLEM_DEFINITION
+  PROPERTIES
+    MATERIAL          = 1
+    DENSITY           = 5.7e-9
+    CONSTITUTIVE_MODEL: OLIVER \
+      1000 0.3
+  END_PROPERTIES
+END_PHYSICAL_PROBLEM
+$-------------------------------------------------------------------
+NUMERICAL_TREATMENT
+  TIME_TREATMENT:      EXPLICIT
+  TIME_INTEGRATION:     TCHAMWA_WIELGOSZ, PHITW=1.033
+  MASS_SCALING=        1
+  SAFETY_FACTOR=       0.1
+  NO_STEADY_STATE
+
+ 
+ 
+$ NUMERICAL_TREATMENT
+$  TIME_TREATMENT:     IMPLICIT  #EXPLICIT TODO
+$  TIME_INTEGRATION:    NEWMARK
+  $,DAMPED
+$  NO_STEADY_STATE
+$  ALGEBRAIC_SOLVER:
+$    SOLVER:             DIRECT
+    $CONVERGENCE:       ITERA=900,TOLER=1.0E-8
+    $PRECONDITIONER:    DIAGONAL
+    $COARSE:            ON
+$    RESIDUAL:          RHS
+$    OUTPUT:            CONVERGENCE
+$    OPTION:            ZERO_FIXITY
+$  END_ALGEBRAIC_SOLVER
+$  RESIDUAL:            TOTAL
+$  SAFETY_FACTOR=       1.0
+$  CONVERGENCE_TOLER=   1.0E-6
+$  MAXIMUM_ITERATION=   100
+$  VECTORIZED_ASEEMBLY: OFF
+ 
+ 
+ 
+END_NUMERICAL_TREATMENT
+$-------------------------------------------------------------------
+OUTPUT_&_POST_PROCESS
+  START_POSTPROCESS_AT, STEP= 0
+  POSTPROCESS DISPL
+  POSTPROCESS SIGMA
+  WITNESS_POINTS
+    DISPX
+    DISPY
+    DISPZ
+    SIGXX
+    SIGYY
+    SIGZZ
+    SIGXY
+    SIGYZ
+   $SIGXZ
+  END_WITNESS_POINTS
+END_OUTPUT_&_POST_PROCESS
+$-------------------------------------------------------------------
+BOUNDARY_CONDITIONS, TRANSIENT
+  CODES, NODES
+            1  001  0.0 0.0 0.0  $ Bottom face
+            4  100  0.0 0.0 0.0, MODULE_FUNCTION= 1 $ Front face
+            3  010  0.0 0.0 0.0  $ Left face
+            6  100  0.0 0.0 0.0  $ Back face
+        1 & 3  011  0.0 0.0 0.0  $ Bottom edges
+        1 & 4  101  0.0 0.0 0.0, MODULE_FUNCTION= 1
+        1 & 5  001  0.0 0.0 0.0 
+        1 & 6  101  0.0 0.0 0.0 
+        3 & 6  110  0.0 0.0 0.0  $ Vertical edges
+        3 & 4  110  0.0 0.0 0.0, MODULE_FUNCTION= 1
+        4 & 5  100  0.0 0.0 0.0, MODULE_FUNCTION= 1
+        5 & 6  100  0.0 0.0 0.0  
+        2 & 3  010  0.0 0.0 0.0  $ Top edges
+        2 & 4  100  0.0 0.0 0.0, MODULE_FUNCTION= 1
+        2 & 5  000  0.0 0.0 0.0 
+        2 & 6  100  0.0 0.0 0.0 
+    1 & 3 & 6  111  0.0 0.0 0.0  $ Node 1
+    1 & 3 & 4  111  0.0 0.0 0.0, MODULE_FUNCTION= 1 $ Node 2
+    1 & 4 & 5  101  0.0 0.0 0.0, MODULE_FUNCTION= 1 $ Node 3
+    1 & 5 & 6  101  0.0 0.0 0.0  $ Node 4
+    2 & 3 & 6  110  0.0 0.0 0.0  $ Node 5
+    2 & 3 & 4  110  0.0 0.0 0.0, MODULE_FUNCTION= 1 $ Node 6
+    2 & 4 & 5  100  0.0 0.0 0.0, MODULE_FUNCTION= 1 $ Node 7
+    2 & 5 & 6  100  0.0 0.0 0.0  $ Node 8
+
+  END_CODES
+  FUNCTIONS
+    TOTAL_NUMBER = 1
+    CONDITION
+      FUNCTION_NUMBER: 1
+      TIME_SHAPE:      DISCRETE, SMOOTH
+      SHAPE_DEFINITION
+        3
+        0.0       0.0    0.0 0.0
+        2.5E-2    0.3    0.0 0.0
+        5E-2      0.0    0.0 0.0         
+   END_SHAPE_DEFINITION
+    END_CONDITION
+  END_FUNCTIONS
+END_BOUNDARY_CONDITIONS
+$-------------------------------------------------------------------
