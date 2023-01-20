@@ -1,0 +1,22 @@
+/*! \page Domain Domain 
+\section Domain Domain documentation
+
+We describe in this section the incompressible flow module, including:
+- Domain_dimensions : Dimensions of the mesh (nodes, elements, etc.)
+- Domain_strategy : Integration rules, etc.
+- Domain_geometry : Element connectivity, node coordinates, etc.
+- Domain_sets : Define some sets on which integrals can be computed for output
+- Domain_boundary conditions : Codes on nodes and boundaries
+
+For the corresponding input data file
+
+- \ref Domain_inputdata_dimensions
+- \ref Domain_inputdata_strategy
+- \ref Domain_inputdata_geometry
+- \ref Domain_inputdata_sets
+- \ref Domain_inputdata_boundary_conditions
+
+
+Boundary conditions are imposed either on nodes or boundaries or on nodes, corresponding to
+essential and natural conditions, respectively. 
+*/

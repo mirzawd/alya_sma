@@ -1,0 +1,58 @@
+
+-----------------
+
+ZEPHYR
+
+COMPUTATIONAL MECHANICS AND DESIGN PROJECT
+
+Universitat Politecnica de Catalunya
+Universitat de Girona
+
+--------------------------------------------------------
+
+
+This code is organized in a KERNEL plus several MODULES.
+
+The kernel contains all the programming units needed to master a run,
+including solver, memory management, inputs, outputs, etc.
+
+The modules are the physical problem themselves.
+
+
+
+---- We are:
+
+KERNEL:
+-------
+
+Codina Ramon        UPC
+Coppola Herbert     UPC
+Houzeaux Guillaume  UPC
+Principe Javier     UPC
+
+Vazquez Mariano     UdG
+
+
+MODULES:
+--------
+
+Read the corresponding credits.txt file, located at the module folder.
+
+
+
+---- Very Important!!
+
+Either read the help files or contact us before start writting any code.
+
+
+
+
+---- Contact and general info:
+
+houzeaux@cimne.upc.es             
+mariano.vazquez@udg.es
+
+
+
+
+

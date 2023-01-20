@@ -1,0 +1,36 @@
+/*! \page Solidz_input_data Solidz Input data
+
+The different mandatory fields in the sample.sld.dat files are:
+
+- \ref Solidz_inputdata_physical_problem 
+- \ref Solidz_inputdata_numerical_treatment 
+- \ref Solidz_inputdata_output_and_postprocess 
+- \ref Solidz_inputdata_boundary_conditions  
+
+\section Solidz_inputdata Solidz Input data
+
+\subsection Solidz_inputdata_physical_problem Solidz Input data: physical problem
+
+\verbinclude  infile-sld_reaphy.f90
+<br>
+\htmlinclude  dxfile-sld_reaphy.f90
+
+\subsection Solidz_inputdata_numerical_treatment Solidz Input data: Numerical treatment
+
+\verbinclude  infile-sld_reanut.f90
+<br>
+\htmlinclude  dxfile-sld_reanut.f90
+
+\subsection Solidz_inputdata_output_and_postprocess Solidz Input data: Output and postprocess
+
+\verbinclude  infile-sld_reabcs.f90
+<br>
+\htmlinclude  dxfile-sld_reabcs.f90
+
+\subsection Solidz_inputdata_boundary_conditions Solidz Input data: Boundary conditions
+
+\verbinclude  infile-sld_reaous.f90
+<br>
+\htmlinclude  dxfile-sld_reaous.f90
+
+*/

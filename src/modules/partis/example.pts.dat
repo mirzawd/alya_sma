@@ -1,0 +1,49 @@
+$------------------------------------------------------------------------
+PHYSICAL_PROBLEM
+PROBLEM_DEFINITION
+  TEMPORAL_DERIVATIVE:      ON (OFF)                                      kfl_timei_pts
+  CONVECTIVE_TERM:          ON (OFF, FUNCTION, FILE)                      kfl_advec_pts
+  NUMBER_CLASSES=           6                                             nclas_pts
+  SOURCE_TERM:              CONSTANT (FILE)                               kfl_sourc_pts, sourc_pts
+  METEO_FILE
+    c:/arnau.meteo
+  END_METEO FILE
+END_PROBLEM_DEFINITION
+$------------------------------------------------------------------------
+PROPERTIES:
+  TERMINAL_VELOCITY_LAW:    CONSTANT (GANSER,WILSON,DELLINO), VALUE=1.0   kfl_vterm_pts, vterm_pts
+  HORIZONTAL_DIFFUSION_LAW: CONSTANT (RAMS),                  VALUE=1.0   kfl_hlawd_pts, hlawd_pts
+  VERTICAL_DIFFUSION_LAW:   CONSTANT (SIMILARITY),            VALUE=1.0   kfl_vlawd_pts, vlawd_pts
+  CLASS
+$   DIAMETER, DENSITY, SHAPE_FACTOR, FRACTION                             diame_pts(), densi_pts(), shape_pts(), fract_pts()
+    ... 
+  END_CLASS
+END_PROPERTIES
+$------------------------------------------------------------------------
+END_PHYSICAL_PROBLEM
+$------------------------------------------------------------------------
+NUMERICAL_TREATMENT
+  STABILITY_CONSTANTS=     1.0 1.0 1.0
+  TAU_STRATEGY:            Codina
+  ELEMENT_LENGTH:          Minimum
+  SHOCK_CAPTURING:         Anisotropic, VALUE=1.0
+  SAFETY_FACTOR=           1.0
+  NORM_OF_CONVERGENCE:     L2
+  CONVERGENCE_TOLERANCE=   1e-8  
+  ALGEBRAIC_SOLVER:        GMRES  
+  SOLVER_ITERATIONS=       100  
+  TOLERANCE_TO_CONVER:     1e-8  
+  KRYLOV_DIMENSION=        10   
+END_NUMERICAL_TREATMENT
+$------------------------------------------------------------------------
+OUTPUT_&_POST_PROCESS
+  START_POSTPROCES_AT STEP =1
+  POSTPROCESS CONCENTRATION, STEPS=1
+END_OUTPUT_&_POST_PROCESS
+$------------------------------------------------------------------------
+BOUNDARY_CONDITIONS 
+  CODES, NODES
+    1 2 0.0
+  END_CODES
+END_BOUNDARY_CONDITIONS
+$------------------------------------------------------------------------

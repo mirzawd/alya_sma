@@ -1,0 +1,250 @@
+/*! \page Nastin Nastin 
+\section Nastin Nastin documentation
+
+We describe in this section the incompressible flow module, including:
+- \ref Nastin_physical_problem : Governing equations
+- \ref Nastin_numerical_treatment : Stabilization, solvers, etc.
+- \ref Nastin_output_and_postprocess : Secondary variables derived from solution
+- \ref Nastin_boundary_conditions : Dirichlet, Neumann and mixed conditions
+
+For the corresponding input data file
+
+- \ref Nastin_inputdata_physical_problem 
+- \ref Nastin_inputdata_numerical_treatment 
+- \ref Nastin_inputdata_output_and_postprocess 
+- \ref Nastin_inputdata_boundary_conditions  
+
+\subsection Nastin_physical_problem Physical problem
+
+Let \f$ \mbox{\boldmath{$U$}} := [\mbox{\boldmath{$u$}},p ]^t \f$ and define the differential operator \f$ {\cal L}(\mbox{\boldmath{$U$}}) \f$ and
+force term \f$ \mbox{\boldmath{$F$}} \f$ as
+
+\f$
+  {\cal L} (\mbox{\boldmath{$U$}}) :=
+     \left[ \begin{array}{l}
+         \displaystyle{
+          \rho (\mbox{\boldmath{$u$}} \cdot \nabla)\mbox{\boldmath{$u$}}
+         -\nabla \cdot[ 2 \mu \mbox{\boldmath{$\varepsilon$}}(\mbox{\boldmath{$u$}}) ]
+         + \nabla p  } \\
+         \nabla \cdot \mbox{\boldmath{$u$}} 
+     \end{array} \right], \\
+  \mbox{\boldmath{$F$}} :=
+     \left[ \begin{array}{l}
+         \rho \mbox{\boldmath{$f$}}  \\
+         0
+     \end{array} \right].
+\f$ 
+
+Introduce also the matrix \f$ \mbox{\boldmath{$M$}} \f$ such that
+
+\f$
+   \mbox{\boldmath{$M$}} = \mbox{\rm diag}(\rho \mbox{\boldmath{$I$}},0).
+\f$
+
+The compact form of the governing equations reads:
+
+\f$
+   \begin{array}{l}
+   \mbox{\boldmath{$M$}} \partial_t \mbox{\boldmath{$U$}} + {\cal L} (\mbox{\boldmath{$U$}}) = \mbox{\boldmath{$F$}}.
+   \end{array}
+\f$
+
+\subsection Nastin_numerical_treatment Numerical Treatment
+
+\subsubsection Nastin_stabilization Stabilization
+
+The stabilization is based on the Variational MultiScale (VMS) method. The formulation is obtained by splitting the unknowns into grid scale 
+and a subgrid scale components, \f$ \mbox{\boldmath{$U$}} = \mbox{\boldmath{$U$}}_h + \tilde{\mbox{\boldmath{$U$}}} \f$.  
+This method has been introduced in 1995 and sets a remarkable mathematical basis for understanding and developing stabilization methods. 
+The general form of this stabilization is
+
+\f$
+\mbox{Galerkin} + \mbox{Stabilization} = 0
+\f$
+
+Let \f$ V \f$ be the test function vector including the velocity and pressure test functions, \f$ \mbox{\boldmath{$v$}} \f$ 
+and \f$ q \f$, respectively, such that \f$ \mbox{\boldmath{$V$}} := [\mbox{\boldmath{$v$}},q ]^t \f$ 
+Let's linearize the equations by setting the convection velocity to \f$ \mbox{\boldmath{$a$}} \f$.
+Three families of VMS methods are available (subscript \f$ h \f$ is removed for the sake of clarity).
+
+- ASGS:  \f$ \mbox{Stabilization} = (\partial_t \tilde{\mbox{\boldmath{$u$}}} , \mbox{\boldmath{$v$}} ) 
+        + ( \tilde{\mbox{\boldmath{$U$}}} , {\cal L}^*(\mbox{\boldmath{$V$}}) )\f$ 
+- OSS:   \f$ \mbox{Stabilization} = ( \tilde{\mbox{\boldmath{$U$}}} , {\cal L}^*(\mbox{\boldmath{$V$}}) )\f$ 
+- Split OSS: \f$ \mbox{Stabilization} = 
+               ( ( \rho \mbox{\boldmath{$a$}} \cdot \nabla \mbox{\boldmath{$v$}} , 
+                   \tau_1 \rho \mbox{\boldmath{$a$}} \cdot \nabla \mbox{\boldmath{$u$}} 
+             - \Pi(\tau_1 \rho \mbox{\boldmath{$a$}} \cdot \nabla \mbox{\boldmath{$u$}}) ) 
+             + ( \nabla q , \tau_1 \nabla p -  \Pi(\tau_1 \nabla p) ) \f$ 
+
+where \f$ \tau_1 \f$ is the algebraic inverse approximation of the momentum operator, defined in next section,
+and \f$ \Pi \f$ is the \f$ L_2 \f$-projection operator.
+
+\subsubsection Nastin_SGS Subgrid scale modeling
+
+In addition to the stabilization technique, the subgrid scale must be modeled. Define the residual \f$ R \f$ of the Navier-Stokes system
+such that \f$ R(\mbox{\boldmath{$U$}}) = \mbox{\boldmath{$F$}} - {\cal L}(\mbox{\boldmath{$U$}})\f$.
+The following expressions are considered:
+
+- ASGS: \f$ \tilde{\mbox{\boldmath{$U$}}} = \mbox{\boldmath{$\tau$}} R(\mbox{\boldmath{$U$}}) \f$ 
+- OSS:  \f$ \tilde{\mbox{\boldmath{$U$}}} = \mbox{\boldmath{$\tau$}} R(\mbox{\boldmath{$U$}}) - \Pi(\mbox{\boldmath{$\tau$}} R(\mbox{\boldmath{$U$}})) \f$ 
+
+where \f$ \mbox{\boldmath{$\tau$}} \f$ is approximated as a diagonal matrix \f$ \mbox{\boldmath{$\tau$}} = \mbox{\rm diag}(\mbox{\boldmath{$I$}}\tau_1,\tau_2) \f$, where \f$ \tau_1 \f$ is the algebraic approximate of the inverse momentum operator, and \f$ \tau_2 \f$ is the algebraic approximate of the inverse continuity operator. In the framework of the Split OSS method, the subgrid scale is not explicitly involved and only the momentum operator approximation
+\f$ \tau_1 \f$ is required. The values of \f$ \tau_1 \f$ and \f$ \tau_2 \f$ are:
+
+\f$
+    \left. \begin{array}{rcl}
+    \tau_1 &=& \left(   c_1 \frac{\mu}{\rho h^2} 
+                      + c_2 \rho \frac{|\mbox{\boldmath{$a$}}|}{h}
+               \right)^{-1}, \\
+    \tau_2 &=& c_1 \mu + c_2 \rho | \mbox{\boldmath{$a$}} | h,
+    \end{array} \right.
+\f$
+
+with \f$ c_1 = 4 \f$ and \f$ c_2 = 2 \f$.
+
+\subsubsection Nastin_SGS_tracking Subgrid scale convection and time tracking
+
+In addition, for the ASGS and OSS, the velocity subgrid scale can be tracked in time and convection. For the time tracking we have:
+
+- ASGS time tracking: \f$ \rho \mbox{\boldmath{$M$}} \partial_t \tilde{\mbox{\boldmath{$U$}}} + \mbox{\boldmath{$\tau$}}^{-1} \tilde{\mbox{\boldmath{$U$}}} = R(\mbox{\boldmath{$U$}}) \f$ 
+- OSS time tracking:  \f$ \rho \mbox{\boldmath{$M$}} \partial_t \tilde{\mbox{\boldmath{$U$}}} + \mbox{\boldmath{$\tau$}}^{-1} \tilde{\mbox{\boldmath{$U$}}} = R(\mbox{\boldmath{$U$}}) - \mbox{\boldmath{$\tau$}}^{-1} \Pi(\mbox{\boldmath{$\tau$}} R(\mbox{\boldmath{$U$}})) \f$ 
+
+The time discretization of the subgrid scale time derivative is based on a first or second order trapezoidal rule. 
+For the convection tracking we have:
+
+- Without convection tracking: \f$ \mbox{\boldmath{$a$}} = \mbox{\boldmath{$u$}} \f$
+- With convection tracking: \f$ \mbox{\boldmath{$a$}} = \mbox{\boldmath{$u$}} + \tilde{\mbox{\boldmath{$u$}}} \f$
+
+Note that when using convection tracking we have that \f$ \tau_1 = \tau_1(\tilde{\mbox{\boldmath{$u$}}}) \f$ and therefore the subgrid scale
+equation is non-linear. The tracking has two positive effects. On the one hand, it enhances the accuracy of the VMS method. 
+On the other hand, it generally enhances the convergence of the numerical scheme and make it more stable.
+
+\subsubsection Nastin_solution_procedure Solution procedure
+
+The time discretization is based on the trapezoidal rule and the linearization is carried
+out using the Picard method. At each time step, the linearized velocity-pressure coupled algebraic system must be solved:
+
+\f$ 
+   \left[ \begin{array}{ll}
+          \mathbf{A}_{uu} & \mathbf{A}_{up} \\
+          \mathbf{A}_{pu} & \mathbf{A}_{pp}
+   \end{array} \right]
+   \left[ \begin{array}{l}
+          \mathbf{u} \\
+          \mathbf{p}
+   \end{array} \right]
+   =
+   \left[ \begin{array}{l}
+          \mathbf{b}_u \\
+          \mathbf{b}_p
+   \end{array} \right].
+   \label{eq:monolithic}
+\f$
+
+where \f$\mathbf{u}\f$ and \f$\mathbf{p}\f$ are velocity and pressure unknowns.
+In order to solve efficiently this system on large supercomputers, we consider a split approach. That is, we solve for the pressure Schur complement system. In its simplest form, this method can be understood as a fractional step technique. The advantage of this technique is this it leads to two decoupled algebraic systems: one for the velocity and one for the pressure. The Orthomin(1) method is used to solve the pressure system. Two version of the Orthomin(1) methods
+are implemented. One that is momentum preserving, and one that is continuity preserving. Both momentum and continuity are preserved only when convergence
+of the algorithm is achevied.
+
+The <b> momentum preserving Orthomin(1) method </b> reads: 
+
+- 1. Solve momentum eqn \f$ \mathbf{A}_{uu} \mathbf{u}^{k+1} = \mathbf{b}_u - \mathbf{A}_{up} \mathbf{p}^k \f$.
+- 2. Compute Schur complement residual \f$ \mathbf{r}^k = [\mathbf{b}_p - \mathbf{A}_{pu} \mathbf{u}^{k+1}] - \mathbf{A}_{pp} \mathbf{p}^k \f$.
+- 3. Solve continuity eqn \f$ \mathbf{Q} \mathbf{z} = \mathbf{r}^k \f$.
+- 4. Solve momentum eqn \f$ \mathbf{A}_{uu} \mathbf{v} = \mathbf{A}_{up} \mathbf{z} \f$.
+- 5. Compute \f$ \mathbf{x} = \mathbf{A}_{pp} \mathbf{z} - \mathbf{A}_{pu} \mathbf{v} \f$.
+- 6. Compute \f$ \alpha = <\mathbf{r}^k,\mathbf{x}>/<\mathbf{x},\mathbf{x}> \f$.
+- 7. Update velocity and pressure
+ -    \f$
+            \left\{ \begin{array}{rcl}
+                  \mathbf{p}^{k+1} &=& \mathbf{p}^k + \alpha \mathbf{z},\\
+                  \mathbf{u}^{k+2} &=& \mathbf{u}^{k+1} - \alpha \mathbf{v}.
+            \end{array} \right. 
+      \f$    
+
+The <b> continuity preserving Orthomin(1) method </b> reads: 
+
+ - 1. Solve momentum eqn \f$ \mathbf{A}_{uu} \mathbf{u}^{k+1} = \mathbf{b}_u - \mathbf{A}_{up} \mathbf{p}^k \f$.
+ - 2. Compute Schur complement residual \f$ \mathbf{r}^k = [\mathbf{b}_p - \mathbf{A}_{pu} \mathbf{u}^{k+1}] - \mathbf{A}_{pp} \mathbf{p}^k \f$.
+ - 3. Solve continuity eqn \f$ \mathbf{Q} \mathbf{z} = \mathbf{r}^k \f$.
+ - 4. Solve momentum eqn \f$ \mathbf{A}_{uu} \mathbf{v} = \mathbf{A}_{up} \mathbf{z} \f$.
+ - 5. Compute \f$ \mathbf{x} = \mathbf{A}_{pp} \mathbf{z} - \mathbf{A}_{pu} \mathbf{v} \f$.
+ - 6. Compute \f$ \alpha = <\mathbf{r}^k,\mathbf{x}>/<\mathbf{x},\mathbf{x}> \f$.
+ - 7. Update velocity and pressure
+  -         \f$
+            \left\{ \begin{array}{rcl}
+                  \mathbf{p}^{k+1} &=& \mathbf{p}^k + \alpha \mathbf{z},\\
+                  \mathbf{u}^{k+2} &=& \mathbf{u}^{k+1} - \alpha \mathbf{v}.
+            \end{array} \right.
+            \f$             
+ - 8. Compute Schur complement residual \f$\mathbf{r}^{k+1} = \mathbf{r}^k - \alpha \mathbf{x}\f$.
+ - 9. Solve continuity eqn \f$\mathbf{Q} \mathbf{z} = \mathbf{r}^{k+1}\f$.
+ - 10. Update velocity and pressure
+  -          \f$ 
+            \left\{ \begin{array}{rcl}
+                  \mathbf{p}^{k+2} &=& \mathbf{p}^{k+1} + \mathbf{z},\\
+                  \mathbf{u}^{k+3} &=& \mathbf{u}^{k+2} + \mathbf{C} (\mathbf{p}^{k+2}-\mathbf{p}^{k+1}).
+            \end{array} \right.          
+            \f$
+
+\subsubsection Algebraic_solvers Algebraic solvers
+
+The two algebraic systems resulting from the Orthomin(1) method applied to the pressure Schur complement must be solved. For the momentum equation, the GMRES or BiCGSTAB methods are usually preferred, with diagonal preconditioning. For the pressure system, a Deflated Conjugate Gradient (CG), with linelet preconditioning in boundary layers, is also a good option.
+
+\subsection Nastin_output_and_postprocess Output and postprocess
+
+\subsection Nastin_boundary_conditions Boundary conditions
+
+Boundary conditions for the Navier-Stokes equations are essential (imposed on nodes) or
+natural (imposed on boundaries), or of mixed type. Essential conditions are of Dirichlet
+type for the velocity and natural conditions are of Neumann type for the traction.
+The traction is the normal component of the stress \f$ \mbox{\boldmath{$\sigma$}} \f$.
+The stress is given by
+
+\f$
+ \mbox{\boldmath{$\sigma$}} = -p \mbox{\boldmath{$I$}} + 2 \mu \mbox{\boldmath{$\varepsilon$}}(\mbox{\boldmath{$u$}})
+\f$
+
+so that the traction is simply \f$ \mbox{\boldmath{$\sigma$}} \cdot \mbox{\boldmath{$n$}} \f$, where
+\f$ \mbox{\boldmath{$n$}} \f$ is the unit exterior normal to the wall:
+
+The different conditions available are the following:
+
+- Dirichlet: \f$ \mbox{\boldmath{$u$}} = \mbox{\boldmath{$u$}}_d \f$
+- Neumann:   \f$ \mbox{\boldmath{$\sigma$}} \cdot \mbox{\boldmath{$n$}} = \mbox{\boldmath{$t$}} \f$
+- Mixed:     \f$ \mbox{\boldmath{$u$}} \cdot  \mbox{\boldmath{$n$}} = \mbox{\boldmath{$u$}}_n, \quad
+                  \mbox{\boldmath{$\sigma$}} \cdot \mbox{\boldmath{$n$}} - 
+                 ( \mbox{\boldmath{$n$}} \cdot \mbox{\boldmath{$\sigma$}} \cdot \mbox{\boldmath{$n$}} ) \mbox{\boldmath{$n$}} = \mbox{\boldmath{$\tau$}}_w  \f$
+
+Mixed boundary conditions can be imposed on local axes, which can be useful when the normal is not aligned with the Cartesian axes.
+For these mixed conditions, we take usually the normal velocity component \f$ \mbox{\boldmath{$u$}}_n = 0 \f$ (no penetration condition) and
+the shear stress \f$ \mbox{\boldmath{$\tau$}}_w \f$ is usually given by the law of the wall, by aligning the shear stress with the opposite
+direction of the velocity (friction slows down the flow) and which module is given as a function of the so-called friction velocity
+\f$ u_* \f$ such that
+
+\f$
+  \tau_w = - \rho u_*^2 \mbox{\boldmath{$u$}} / | \mbox{\boldmath{$u$}} |
+\f$
+
+Two laws of the walls are available to compute the friction velocity, namely Reichardt's law and the law of the wall for atmospheric boundary layers (ABL). They are
+
+- Reichardt's law: \n
+  \f$  u^+ = \frac{1}{\kappa} \ln{(1+0.4 {y}^+)}
+     + 7.8 \left[ 1 -\exp{\left(-\frac{{y}^+}{11}\right)}
+     - \frac{{y}^+}{11} \exp{(-0.33 {y}^+)} \right] \f$
+- ABL wall law: \n
+  \f$ u^+ = 1/ 0.41 \ln{[ (y+k_0 ) / k_0 ]} \f$ \n
+\n
+where
+\n
+- \f$  y \f$ is the wall distance;
+- \f$  u^+ = u/u_* \f$ is the non-dimensional velocity;
+- \f$  y^+ = y u_* / \nu \f$ is the non-dimensional wall distance;
+- \f$  k_0 \f$ is the surface roughness.\n
+\n
+ 
+These equations are used to compute the friction velocity \f$ u_* \f$ which, at its turn, is used to prescribe
+the wall shear stress. In the case of Reichardt's law which is non-linear, a Newton-Raphson is used
+to find \f$ u_* \f$.
+
+*/

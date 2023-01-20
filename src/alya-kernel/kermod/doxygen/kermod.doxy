@@ -1,0 +1,20 @@
+/*! \page Kermod Kermod
+\section Kermod Kermod documentation
+
+We describe in this section the incompressible flow module, including:
+- \ref Kermod_physical_problem : Governing equations
+- \ref Kermod_numerical_treatment : Stabilization, solvers, etc.
+- \ref Kermod_output_and_postprocess : Secondary variables derived from solution
+
+For the corresponding input data file
+
+- \ref Kermod_inputdata
+
+\subsection Kermod_physical_problem Physical problem
+
+\subsection Kermod_numerical_treatment Numerical Treatment
+
+\subsection Kermod_output_and_postprocess Output and postprocess
+
+
+*/

@@ -1,0 +1,8 @@
+1. Pressure residual converges but not the algebraic residual of the continuity equation?
+   - Check convergence of continuity solver.
+   - Check how critical time step is computed: at element center or at Gauss points?
+     May need to use Gauss points
+
+2. Algebraic residual of continuity equation does not converge:
+   - If converged pressure is zero, it could be as
+     ||b-Ax||/||b|| with ||b|| -> 0 does not make sense

@@ -1,0 +1,14 @@
+
+-----------------
+
+ALYA
+
+COMPUTATIONAL MECHANICS AND DESIGN PROJECT
+
+Barcelona Supercomputing Center
+
+--------------------------------------------------------
+
+Temperature module:
+
+Guillaume Houzeaux

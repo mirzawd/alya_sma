@@ -1,0 +1,14 @@
+
+--| -----------------
+--| 
+--| ALYA
+--| 
+--| COMPUTATIONAL MECHANICS AND DESIGN PROJECT
+--| 
+--| Barcelona Supercomputing Center
+--| 
+--| --------------------------------------------------------
+
+--| NASTIN: Incompressible Navier-Stokes module
+--| 
+--| Author: Guillaume Houzeaux

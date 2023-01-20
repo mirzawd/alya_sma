@@ -1,0 +1,43 @@
+ /*! \page Domain_input_data Domain Input data
+
+\section Domain_inputdata Domain Input data
+
+The different mandatory fields in the sample.dom.dat files are:
+
+- \ref Domain_inputdata_dimensions
+- \ref Domain_inputdata_strategy
+- \ref Domain_inputdata_geometry
+- \ref Domain_inputdata_sets
+- \ref Domain_inputdata_boundary_conditions
+
+\subsection Domain_inputdata_dimensions Domain Input data: Dimensions of the mesh
+
+\verbinclude  infile-readim.f90
+<br>
+\htmlinclude  dxfile-readim.f90
+
+\subsection Domain_inputdata_strategy Domain Input data: Strategy
+
+\verbinclude  infile-reastr.f90
+<br>
+\htmlinclude  dxfile-reastr.f90
+
+\subsection Domain_inputdata_geometry Domain Input data: Geometry
+
+\verbinclude  infile-reageo.f90
+<br>
+\htmlinclude  dxfile-reageo.f90
+
+\subsection Domain_inputdata_sets  Domain Input data: Set definition
+
+\verbinclude  infile-reaset.f90
+<br>
+\htmlinclude  dxfile-reaset.f90
+
+\subsection Domain_inputdata_boundary_conditions Domain Input data: Boundary conditions
+
+\verbinclude  infile-reabcs.f90
+<br>
+\htmlinclude  dxfile-reabcs.f90
+
+*/

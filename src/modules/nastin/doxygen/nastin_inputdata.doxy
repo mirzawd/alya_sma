@@ -1,0 +1,36 @@
+/*! \page Nastin_input_data Nastin Input data
+
+The different mandatory fields in the sample.nsi.dat files are:
+
+- \ref Nastin_inputdata_physical_problem 
+- \ref Nastin_inputdata_numerical_treatment 
+- \ref Nastin_inputdata_output_and_postprocess 
+- \ref Nastin_inputdata_boundary_conditions  
+
+\section Nastin_inputdata Nastin Input data
+
+\subsection Nastin_inputdata_physical_problem Nastin Input data: physical problem
+
+\verbinclude  infile-nsi_reaphy.f90
+<br>
+\htmlinclude  dxfile-nsi_reaphy.f90
+
+\subsection Nastin_inputdata_numerical_treatment Nastin Input data: Numerical treatment
+
+\verbinclude  infile-nsi_reanut.f90
+<br>
+\htmlinclude  dxfile-nsi_reanut.f90
+
+\subsection Nastin_inputdata_output_and_postprocess Nastin Input data: Output and postprocess
+
+\verbinclude  infile-nsi_reaous.f90
+<br>
+\htmlinclude  dxfile-nsi_reaous.f90
+
+\subsection Nastin_inputdata_boundary_conditions Nastin Input data: Boundary conditions
+
+\verbinclude  infile-nsi_reabcs.f90
+<br>
+\htmlinclude  dxfile-nsi_reabcs.f90
+
+*/

@@ -1,0 +1,11 @@
+/*! \page Kermod_input_data Kermod Input data
+
+\section Kermod_inputdata Kermod Input data
+
+The different mandatory fields in the sample.ker.dat files are given in the following.
+
+\verbinclude  infile-ker_readat.f90
+<br>
+\htmlinclude  dxfile-ker_readat.f90
+
+*/
