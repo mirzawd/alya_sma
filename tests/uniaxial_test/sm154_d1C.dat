@@ -1,0 +1,38 @@
+$-------------------------------------------------------------------
+RUN_DATA
+  ALYA:                  sm154_d1C
+  CODE=                  1
+  LIVE_INFO:             SCREEN
+  LOG_FILE:              ON
+  POSTPROCESS:           domain
+$  RUN_TYPE:             CONTINUE
+   RUN_TYPE:            PRELIMINARY, FREQUENCY=20000
+END_RUN_DATA
+$-------------------------------------------------------------------
+PROBLEM_DATA
+  TIME_COUPLING:      GLOBAL, FROM_CRITICAL
+  TIME_INTERVAL:      0.0, 0.02
+  NUMBER_OF_STEPS=    1E6
+  $------------------------------------------
+  SOLIDZ_MODULE:         ON
+  END_SOLIDZ_MODULE
+  PARALL_SERVICE:        ON
+    OUTPUT_FILE:         OFF
+    POSTPROCESS:         MASTER
+    PARTITION_TYPE:      FACES
+    PARTITIONING:
+      METHOD:            METIS
+    END_PARTITIONING
+    OPENMP
+      ELEMENT_CHUNK:     100
+      COLORING:          MIN_COLOR
+    END_OPENMP
+  END_PARALL_SERVICE
+  
+
+  
+END_PROBLEM_DATA
+$-------------------------------------------------------------------
+
+
+

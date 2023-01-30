@@ -1,0 +1,28 @@
+{
+    "authors": [
+        "gerard.guillamet@bsc.es",
+        "adria.quintanas@bsc.es"
+    ],
+    "comparisons": [
+        {
+            "file": "sm154_d1C-boundary.sld.set",
+            "method": "absolute",
+            "tolerance": 1e-30
+        }
+    ],
+    "description": "This test validates the damage law for fibre compression (d1-) by using the constitutive model 154. The model consist of an element 0.194x0.194x0.194mm with fibres parallel to the loading direction (0 degrees ply respect to the reference).",
+    "exclude": [
+        "special"
+    ],
+    "executions": [
+        {
+            "mpi": 1,
+            "openmp": 0
+        }
+    ],
+    "modules": [
+        "solidz"
+    ],
+    "name": "sm154_d1C",
+    "postprocess": "alya2pos"
+}
